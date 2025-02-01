@@ -1,15 +1,20 @@
+#specifies the files that gonna be removed from docker context
+
 #Git
 .git
 .gitignore
 
 #docker
+#working docker files used specifically on my local mahine, not in the production image
 .docker
 
-#python
+#python cache files, maybe specific for os
 app/_pycache_/
 app/*/_pycache_/
 app/*/*/_pycache_/
 app/*/*/*/_pycache_/
+
+#local machine virtual env, because we already have virtual env in our docker file
 .env/
 .venv/
 venv/

@@ -1,13 +1,19 @@
-
+#version of docker compose syntax
 version: "3.9"
 
 services:
   app:
     build:
+      # Running service from the root directory
       context: .
+      args:
+        - DEV=true
     ports:
+      #maps port 8000 on my local machine to port 8000 inside docker container/ accsee network to connect to server
       - "8000:8000"
     volumes:
-      - ./app:app
-    command: >
+       # Maps local directory to Docker container directory / automatically sync local and server code
+      - ./app:/app
+    command:
+      #speifying default run command
       sh -c "python manage.py runserver 0.0.0.0:8000"
