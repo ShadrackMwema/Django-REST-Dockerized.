@@ -1,9 +1,6 @@
----
-name: checks
-#name
+name: CI Checks
 
 on: [push]
-#trigger
 
 jobs:
   test-lint:
@@ -14,10 +11,13 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-      - name: Checkout
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Checkout code
         uses: actions/checkout@v2
-      - name: Test
-       run: docker-compose run --rm app sh -c "python manage.py test"
-      - name: Lint
-       run: docker-compose run --rm app sh -c "flake8"
+
+      - name: Run Tests
+        run: docker-compose run --rm app sh -c "python manage.py test"
+
+      - name: Run Linting
+        run: docker-compose run --rm app sh -c "flake8"
