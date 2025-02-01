@@ -21,3 +21,9 @@ jobs:
 
       - name: Run Linting
         run: docker-compose run --rm app sh -c "flake8"
+
+      - name: Check Docker Compose on Host
+        run: docker-compose --version || echo "Docker Compose is NOT installed"
+        
+      - name: Check Docker Compose in Container
+        run: docker run --rm app sh -c "docker-compose --version || echo 'Docker Compose is NOT installed in container'"
