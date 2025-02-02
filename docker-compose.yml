@@ -17,3 +17,5 @@ services:
     command:
       #speifying default run command
       sh -c "python manage.py runserver 0.0.0.0:8000"
+  db:
+    image: postgress:13-alphine
