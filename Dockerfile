@@ -33,6 +33,10 @@ ARG DEV=false
 RUN python -m venv /py && \
     #for python package upgrading
     /py/bin/pip install --upgrade pip && \
+    #installing postgresql packages
+    apk add --update --no-cache postgresql-client && \
+    #installing build dependencies
+    apk add --update --no-cache --virtual .tmp-build-deps build-base postgresql-dev musl-dev && \
     #install requirements to the aphine image
     /py/bin/pip install -r /tmp/requirements.txt && \
     #install dev requirements to temp
@@ -43,6 +47,8 @@ RUN python -m venv /py && \
         /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
     rm -rf /temp && \
+    #remove build dependencies
+    apk del .tmp-build-deps && \
     #add a non root user to the alphine image
     adduser \
         --disabled-password \
